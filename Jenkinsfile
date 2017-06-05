@@ -1,11 +1,12 @@
-@Library('https://github.com/jenkinsci/workflow-durable-task-step-plugin@master')
-pipeline {
-    agent { docker 'maven:3.3.3' }
-    stages {
-        stage('build') {
-            steps {
-                sh 'mvn --version'
-            }
-        }
+node {
+    stage('Build') {
+        checkout scm
+        sh 'ls -ltr && whoami'
+    }
+    stage('Test') {
+        sh 'chmod +x build.sh && ./build.sh'
+    }
+    stage('Deploy') {
+        echo 'Deploying....'
     }
 }
